@@ -1,60 +1,55 @@
 package com.nextgen.domain.template;
 
-/**
- * 交易抽象模板类（模板方法模式：封装固定交易流程）
- * 定义销售/退货的固定流程，可变步骤延迟到子类实现
- */
 public abstract class AbstractTransaction {
-    // 模板方法：固定交易流程（final修饰，禁止子类重写，保证流程规范）
     public final boolean processTransaction() {
-        // 1. 启动交易（固定步骤）
+        // 1. start transaction (fixed step)
         startTransaction();
 
-        // 2. 执行交易（可变步骤，子类实现）
+        // 2. Execute transaction (variable step, subclass implementation)
         boolean isExecuteSuccess = executeTransaction();
         if (!isExecuteSuccess) {
-            handleTransactionFailure(); // 交易失败处理（固定步骤）
+            handleTransactionFailure(); // Transaction failure handling (fixed step)
             return false;
         }
 
-        // 3. 验证交易（可变步骤，子类实现）
+        // 3. validate transaction (variable step, subclass implementation)
         boolean isValidateSuccess = validateTransaction();
         if (!isValidateSuccess) {
-            handleTransactionFailure(); // 交易失败处理（固定步骤）
+            handleTransactionFailure(); // Transaction failure handling (fixed step)
             return false;
         }
 
-        // 4. 完成交易（固定步骤）
+        // 4. Complete the transaction (fixed steps)
         completeTransaction();
 
-        // 5. 后续操作（固定步骤）
+        // 5. Follow-up (fixed steps)
         postTransaction();
 
         return true;
     }
 
-    // 固定步骤1：启动交易
+    // Fixed Step 1: Start transaction
     protected void startTransaction() {
         System.out.println("\n=== [Template Method] Start transaction ===");
     }
 
-    // 可变步骤1：执行交易（子类实现）
+    // Variable Step 1: Perform transaction (subclass implementation)
     protected abstract boolean executeTransaction();
 
-    // 固定步骤2：交易失败处理
+    // Fixed Step 2: Transaction failure handling
     protected void handleTransactionFailure() {
         System.out.println("=== [Template Method] Transaction failed, terminate process ===");
     }
 
-    // 可变步骤2：验证交易（子类实现）
+    // Variable Step 2: Validate transaction (subclass implementation)
     protected abstract boolean validateTransaction();
 
-    // 固定步骤3：完成交易
+    // Fixed Step 3: Complete transaction
     protected void completeTransaction() {
         System.out.println("=== [Template Method] Transaction completed ===");
     }
 
-    // 固定步骤4：交易后续操作
+    // Fixed Step 4: Trade follow-up
     protected void postTransaction() {
         System.out.println("=== [Template Method] Execute post-transaction operations ===");
     }
