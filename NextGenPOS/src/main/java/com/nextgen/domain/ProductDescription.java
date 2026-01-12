@@ -6,20 +6,16 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
-/**
- * 商品描述类（存储商品固定信息：ID、名称、单价、描述）
- * 使用Lombok注解简化代码，无需手动编写getter/构造器
- */
-@AllArgsConstructor // 全参构造器
-@Getter // 生成所有属性的getter方法
-@ToString // 生成toString方法，方便调试
+@AllArgsConstructor // all-argument constructor
+@Getter // getters for all properties
+@ToString // Generate toString method for debugging
 public class ProductDescription {
-    // 商品ID
+    // Product ID
     private String itemId;
-    // 商品名称
+    // Product name
     private String name;
-    // 商品单价（BigDecimal保证金额计算精度）
+    // Unit price
     private BigDecimal price;
-    // 商品描述
+    // Product description
     private String description;
 }
